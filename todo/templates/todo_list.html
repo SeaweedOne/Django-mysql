@@ -1,0 +1,17 @@
+<!-- templates/todo_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+</head>
+<body>
+    <h1>Todo List</h1>
+    <ul>
+        {% for todo in todos %}
+        <li>{{ todo.work }} - {% if todo.done %} Done {% else %} Not Done {% endif %}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
