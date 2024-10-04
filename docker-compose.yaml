@@ -14,7 +14,7 @@ services:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
     ports:
-      - "3308:3306"
+      - "3306:3306"
     healthcheck:
       test: [ 'CMD-SHELL', 'mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD' ]
       interval: 5s
@@ -28,8 +28,14 @@ services:
 
   redis:
     image: redis:latest
+    hostname: redis
+    container_name: redis
     ports:
       - "6379:6379"
+    volumes:
+      - ../redis/data:/data
+      - ../redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server --port 6379
     networks:
       - django-redis-project
 
@@ -42,7 +48,7 @@ services:
       - |
         ./wait-for-it.sh mysql:3306 -s -t 30
         python manage.py migrate && python manage.py migrate
-        python3 manage.py runserver
+        python3 manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
     ports:

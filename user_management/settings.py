@@ -24,7 +24,7 @@ SECRET_KEY = "django-insecure-y*1%yw%hb1w1=hjp5@j^l%e!-21o8q2c&c2ag6nn^ca$gg3wb4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -81,10 +81,10 @@ import os
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": f"{os.getenv('DB_NAME')}",
-        "USER": f"{os.getenv('DB_USER')}",
-        "PASSWORD": f"{os.getenv('DB_PASSWORD')}",
-        "HOST":  f"{os.getenv('DB_HOST')}",
+        "NAME": f"engine_db",
+        "USER": f"hana",
+        "PASSWORD": f"hana",
+        "HOST":  f"mysql",
         "PORT": "3306",
     }
 }
@@ -95,7 +95,7 @@ CACHE_TTL = 60 * 1500
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://{os.getenv('REDIS_HOST')}:6379/1",
+        "LOCATION": f"redis://redis:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
@@ -104,7 +104,7 @@ CACHES = {
 
 RQ_QUEUES = {
     "default": {
-        "HOST": "localhost",
+        "HOST": "redis",
         "PORT": 6379,
         "DB": 0,
     }

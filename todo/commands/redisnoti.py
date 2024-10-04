@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        r = redis.StrictRedis(host='localhost', port=6379, db=1)
+        r = redis.StrictRedis(host='redis', port=6379, db=1)
         p = r.pubsub()
         p.psubscribe("notify")
         for message in p.listen():
